@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from dotenv import load_dotenv
+from backend.database import models_db
 import os
-from backend.database.models_db import Base
 
 load_dotenv()
 
@@ -19,7 +19,7 @@ engine = create_engine(
     if DATABASE_URL.startswith("sqlite")
     else {}
 )
-Base.metadata.create_all(bind=engine)
+
 
 SessionLocal = sessionmaker(
     autocommit=False,
@@ -36,3 +36,5 @@ def get_db():
         db.close()
 
 Base = declarative_base()
+
+Base.metadata.create_all(bind=engine)
