@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from dotenv import load_dotenv
-from backend.database import models_db
 import os
 
 load_dotenv()
@@ -26,6 +25,7 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
 )
+Base = declarative_base()
 
 def get_db():
     db = SessionLocal()
@@ -35,6 +35,6 @@ def get_db():
     finally:
         db.close()
 
-Base = declarative_base()
+from backend.database import models_db
 
 Base.metadata.create_all(bind=engine)
