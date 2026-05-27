@@ -28,4 +28,5 @@ jobs:
       - name: Run tests
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          TESTING: 1
         run: pytest

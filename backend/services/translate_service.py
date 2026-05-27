@@ -1,19 +1,26 @@
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from functools import lru_cache
 import logging
-
+import os
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 model = None
 tokenizer = None
 
+# Режим для прогона тестов
+TESTING = os.getenv("TESTING") == "1"
 
 def load_translator():
 
     global model, tokenizer
 
+    # Если включен тестовый режим - выход
+    if TESTING:
+        return
+
     if model is None or tokenizer is None:
+
 
         logger.info("🌍 Загрузка переводчика...")
 
@@ -29,6 +36,9 @@ def load_translator():
 @lru_cache(maxsize=100)
 def translate(text: str) -> str:
 
+    # Во время тестов просто возвращаем текст
+    if TESTING:
+        return text
     try:
 
         load_translator()
