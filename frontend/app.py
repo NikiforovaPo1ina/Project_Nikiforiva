@@ -8,6 +8,7 @@ from PIL import Image
 import json
 from datetime import datetime
 from pathlib import Path
+import os
 
 # Конфигурация страницы
 st.set_page_config(
@@ -32,7 +33,7 @@ if 'history' not in st.session_state:
 if 'total_generations' not in st.session_state:
     st.session_state.total_generations = 0
 if 'api_url' not in st.session_state:
-    st.session_state.api_url = "http://localhost:8000"
+    st.session_state.api_url = os.getenv("API_URL_BACK", "http://localhost:8000")
 if 'current_seed' not in st.session_state:
     st.session_state.current_seed = None
 
