@@ -1,0 +1,7 @@
+body {
+  background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+  color: white;
+}
+h1, h2 {
+  text-align: center;
+}
