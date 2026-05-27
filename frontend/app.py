@@ -105,7 +105,7 @@ with st.sidebar:
         st.warning("Запустите бэкенд: uvicorn backend.main:app --reload")
         st.session_state.api_url = st.text_input(
             "URL API",
-            value="http://localhost:8000",
+            value=st.session_state.api_url,
             help="Введите адрес вашего FastAPI сервера"
         )
 
