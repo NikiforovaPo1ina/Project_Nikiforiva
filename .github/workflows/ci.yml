@@ -26,4 +26,6 @@ jobs:
           pip install pytest httpx pytest-asyncio
 
       - name: Run tests
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: pytest
