@@ -586,10 +586,9 @@ elif page == "Галерея":
                             </div>
                             """, unsafe_allow_html=True)
 
-                            # Показ изображения
+                            # Показ изображения через API
                             try:
-                                image = Image.open(item["image_path"])
-                                st.image(image, use_container_width=True)
+                                display_image_from_path(item["image_path"])
 
                                 # Действия
                                 col_act1, col_act2 = st.columns(2)
