@@ -1,5 +1,10 @@
 FROM python:3.10-slim
 
+# Устанавливаем ffmpeg и сразу чистим кэш
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/* \
+
 WORKDIR /app
 
 # Копируем requirements.txt из корня репозитория
