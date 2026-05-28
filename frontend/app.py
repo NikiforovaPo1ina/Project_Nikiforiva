@@ -49,24 +49,37 @@ def check_api_health():
 
 
 def display_image_from_path(image_path):
-    """Отображение изображения по пути"""
+    """Отображение изображения через backend API"""
     try:
-        image = Image.open(image_path)
-        st.image(image, use_container_width=True, caption="Ваше произведение искусства")
+        filename = os.path.basename(image_path)
+
+        image_url = f"{st.session_state.api_url}/image/{filename}"
+
+        response = requests.get(image_url)
+
+        if response.status_code != 200:
+            st.error(f"Ошибка загрузки изображения: {response.status_code}")
+            return False
+
+        image = Image.open(io.BytesIO(response.content))
+
+        st.image(
+            image,
+            use_container_width=True,
+            caption="Ваше произведение искусства"
+        )
 
         # Кнопка скачивания
-        buf = io.BytesIO()
-        image.save(buf, format="PNG")
-        byte_im = buf.getvalue()
-
         st.download_button(
             label="Скачать изображение",
-            data=byte_im,
-            file_name=f"voice2art_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
+            data=response.content,
+            file_name=filename,
             mime="image/png",
             use_container_width=True
         )
+
         return True
+
     except Exception as e:
         st.error(f"Ошибка загрузки изображения: {e}")
         return False

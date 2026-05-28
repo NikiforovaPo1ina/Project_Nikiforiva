@@ -140,11 +140,14 @@ async def generate(
 
         generation_time = time.time() - start_time
 
+        # URL для доступа к изображению
+        image_url = f"/image/{os.path.basename(image_path)}"
+
         create_generation(
             db=db,
             russian_text=ru_text,
             english_text=en_text,
-            image_path=image_path,
+            image_path=image_url,
             style_used=style,
             generation_time=round(generation_time, 2)
         )
@@ -153,7 +156,7 @@ async def generate(
             success=True,
             russian_text=ru_text,
             english_text=en_text,
-            image_path=image_path,
+            image_path=image_url,
             style_used=style,
             generation_time=round(generation_time, 2),
             message=f"Изображение создано в стиле {style}"
