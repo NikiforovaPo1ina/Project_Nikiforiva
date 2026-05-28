@@ -51,6 +51,8 @@ def check_api_health():
 def display_image_from_path(image_path):
     """Отображение изображения через backend API"""
     try:
+        st.write("DEBUG IMAGE PATH:", image_path)
+
         filename = os.path.basename(image_path)
 
         image_url = f"{st.session_state.api_url}/image/{filename}"
